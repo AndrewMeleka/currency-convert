@@ -2,6 +2,7 @@ package currency
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 
 	"github.com/AndrewMeleka/currency-converter/scrapper"
@@ -13,9 +14,14 @@ func GetExchangeRate(from Currency, to Currency) (float64, error) {
 	}
 	url := fmt.Sprintf("https://wise.com/gb/currency-converter/%s-to-%s-rate", from, to)
 
+	selector := "#calculator > div.tapestry-wrapper span[dir='ltr'] span"
+	if os.Getenv("selector") != "" {
+		selector = os.Getenv("selector")
+	}
+
 	s := scrapper.Scrapper{
-		Url:       url,
-		QueryFile: "wise-query-currency.txt",
+		Url:      url,
+		Selector: selector,
 	}
 	rate, err := s.Scrap()
 	if err != nil {

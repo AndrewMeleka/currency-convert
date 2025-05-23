@@ -1,1 +1,0 @@
-#calculator > div.tapestry-wrapper span[dir='ltr'] span
