@@ -27,6 +27,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	if from == to {
+		fmt.Println("The currencies are the same, no conversion needed.")
+		return
+	}
+
 	rate, err := currency.GetExchangeRate(currency.Currency(from), currency.Currency(to))
 	if err != nil {
 		fmt.Println("Error fetching exchange rate:", err)

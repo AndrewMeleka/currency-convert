@@ -31,7 +31,7 @@ func (s *Scrapper) loadHTML() (*goquery.Document, error) {
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return nil, err
+		return nil, fmt.Errorf("HTTP request failed with status: %s", resp.Status)
 	}
 	defer resp.Body.Close()
 	// Load the HTML document

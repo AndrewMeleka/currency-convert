@@ -23,6 +23,7 @@ func GetExchangeRate(from Currency, to Currency) (float64, error) {
 		Url:      url,
 		Selector: selector,
 	}
+
 	rate, err := s.Scrap()
 	if err != nil {
 		return 0, fmt.Errorf("failed to get exchange rate: %v", err)
