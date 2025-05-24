@@ -9,13 +9,14 @@ import (
 	"github.com/inancgumus/screen"
 )
 
-var (
-	amount    float64
-	amountStr string
-	from      string
-	to        string
-	again     bool
-)
+var currenciesList = currency.List{
+	Currencies: []currency.Currency{
+		{Code: "USD", Text: "United States Dollar", Symbol: "$"},
+		{Code: "EUR", Text: "Euro", Symbol: "€"},
+		{Code: "GBP", Text: "British Pound Sterling", Symbol: "£"},
+		{Code: "EGP", Text: "Egyptian Pound", Symbol: "ج.م"},
+	},
+}
 
 func main() {
 	screen.Clear()
@@ -32,13 +33,13 @@ func main() {
 		return
 	}
 
-	rate, err := currency.CurrenciesList.GetExchangeRate(from, to)
+	rate, err := currenciesList.GetExchangeRate(from, to)
 	if err != nil {
 		fmt.Println("Error fetching exchange rate:", err)
 	}
 
-	fromC, _ := currency.CurrenciesList.GetCurrency(from)
-	toC, _ := currency.CurrenciesList.GetCurrency(to)
+	fromC, _ := currenciesList.GetCurrency(from)
+	toC, _ := currenciesList.GetCurrency(to)
 	fmt.Printf("%s ➡️ %s\n", fromC.Code, toC.Code)
 
 	fmt.Printf("The exchange rate : %.2f\n", rate)

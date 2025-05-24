@@ -4,13 +4,20 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/AndrewMeleka/currency-converter/currency"
 	"github.com/charmbracelet/huh"
+)
+
+var (
+	amount    float64
+	amountStr string
+	from      string
+	to        string
+	again     bool
 )
 
 func starterForm() *huh.Form {
 	// Create a new form
-	cOptions := currency.CurrenciesList.HuhOptions()
+	cOptions := currenciesList.HuhOptions()
 	form := huh.NewForm(
 		huh.NewGroup(
 			huh.NewSelect[string]().

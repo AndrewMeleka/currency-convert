@@ -8,7 +8,7 @@ import (
 	"github.com/AndrewMeleka/currency-converter/scrapper"
 )
 
-func (cl *CurrencyList) GetExchangeRate(from string, to string) (float64, error) {
+func (cl *List) GetExchangeRate(from string, to string) (float64, error) {
 	fromC, fromOk := cl.GetCurrency(from)
 	toC, toOk := cl.GetCurrency(to)
 	if !fromOk || !toOk {
