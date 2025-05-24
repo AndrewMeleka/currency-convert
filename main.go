@@ -14,7 +14,7 @@ var currenciesList = currency.List{
 		{Code: "USD", Text: "United States Dollar", Symbol: "$"},
 		{Code: "EUR", Text: "Euro", Symbol: "€"},
 		{Code: "GBP", Text: "British Pound Sterling", Symbol: "£"},
-		{Code: "EGP", Text: "Egyptian Pound", Symbol: "ج.م"},
+		{Code: "EGP", Text: "Egyptian Pound", Symbol: "E£"},
 	},
 }
 
@@ -42,7 +42,7 @@ func main() {
 	toC, _ := currenciesList.GetCurrency(to)
 	fmt.Printf("%s ➡️ %s\n", fromC.Code, toC.Code)
 
-	fmt.Printf("The exchange rate : %.2f\n", rate)
+	fmt.Printf("The exchange rate : %s%.2f\n", toC.Symbol, rate)
 	cAmount := amount * rate
 
 	fmt.Printf("%s%.2f = %s%.2f\n", fromC.Symbol, amount, toC.Symbol, cAmount)
