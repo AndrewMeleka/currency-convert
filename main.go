@@ -32,14 +32,19 @@ func main() {
 		return
 	}
 
-	rate, err := currency.GetExchangeRate(currency.Currency(from), currency.Currency(to))
+	rate, err := currency.CurrenciesList.GetExchangeRate(from, to)
 	if err != nil {
 		fmt.Println("Error fetching exchange rate:", err)
 	}
 
-	fmt.Printf("The exchange rate from %s to %s is: %.2f\n", from, to, rate)
+	fromC, _ := currency.CurrenciesList.GetCurrency(from)
+	toC, _ := currency.CurrenciesList.GetCurrency(to)
+	fmt.Printf("%s ➡️ %s\n", fromC.Code, toC.Code)
+
+	fmt.Printf("The exchange rate : %.2f\n", rate)
 	cAmount := amount * rate
-	fmt.Printf("The converted amount (%.2f): %.2f\n", amount, cAmount)
+
+	fmt.Printf("%s%.2f = %s%.2f\n", fromC.Symbol, amount, toC.Symbol, cAmount)
 
 	err = huh.NewConfirm().
 		Title("Would you like to try again?").

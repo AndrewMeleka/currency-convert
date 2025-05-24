@@ -10,7 +10,7 @@ import (
 
 func starterForm() *huh.Form {
 	// Create a new form
-	cOptions := currency.HuhOptions()
+	cOptions := currency.CurrenciesList.HuhOptions()
 	form := huh.NewForm(
 		huh.NewGroup(
 			huh.NewSelect[string]().

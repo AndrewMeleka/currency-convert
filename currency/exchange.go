@@ -8,22 +8,21 @@ import (
 	"github.com/AndrewMeleka/currency-converter/scrapper"
 )
 
-func GetExchangeRate(from Currency, to Currency) (float64, error) {
-	if !IsSupportedCurrency(from) || !IsSupportedCurrency(to) {
+func (cl *CurrencyList) GetExchangeRate(from string, to string) (float64, error) {
+	fromC, fromOk := cl.GetCurrency(from)
+	toC, toOk := cl.GetCurrency(to)
+	if !fromOk || !toOk {
 		return 0, fmt.Errorf("unsupported currency: %s or %s", from, to)
 	}
-	url := fmt.Sprintf("https://wise.com/gb/currency-converter/%s-to-%s-rate", from, to)
-
+	url := fmt.Sprintf("https://wise.com/gb/currency-converter/%s-to-%s-rate", fromC.Code, toC.Code)
 	selector := "#calculator > div.tapestry-wrapper span[dir='ltr'] span"
 	if os.Getenv("selector") != "" {
 		selector = os.Getenv("selector")
 	}
-
 	s := scrapper.Scrapper{
 		Url:      url,
 		Selector: selector,
 	}
-
 	rate, err := s.Scrap()
 	if err != nil {
 		return 0, fmt.Errorf("failed to get exchange rate: %v", err)
